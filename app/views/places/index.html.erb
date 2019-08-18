@@ -1,0 +1,94 @@
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+  </ol>
+  <div class="carousel-inner" role="listbox">
+    <div class="carousel-item active">
+      <%= image_tag 'slider1.jpg', class: 'img-fluid' %>
+      <div class="carousel-caption d-none d-md-block">
+        <h3>The BBQ ribs that can makes your day</h3>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag 'slider2.jpg', class: 'img-fluid' %>
+      <div class="carousel-caption d-none d-md-block">
+        <h3>find The Juicy Steak near you</h3>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag 'slider3.jpg', class: 'img-fluid' %>
+      <div class="carousel-caption d-none d-md-block">
+        <h3>The Dim Sum that you can't refuse</h3>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag 'slider4.jpg', class: 'img-fluid' %>
+      <div class="carousel-caption d-none d-md-block">
+        <h3>Healthy foods? No problem</h3>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<div class="pagebox col-10 offset-1">
+<%= will_paginate @places %>
+</div>
+
+
+<% @places.each do |place| %>
+  <div class="booyah-box col-10 offset-1">
+    <h1><%= link_to place.name, place_path(place) %></h1><br />
+    <i><%= place.address %></i><br />
+    <p><%= place.description %></p><br />
+
+ <% if place.user.present? %>
+ <small><%= place.user.email %></small>
+ <% end %>
+
+<% if place.comments.present? %>
+ <div class="col-12 col-sm-6">
+  <blockquote>
+    <% if place.comments.last.humanized_rating.present? %>
+    <b><%= place.comments.last.humanized_rating %></b> -
+    <% end %>
+    <%= place.comments.last.message %>
+    <small><%= place.comments.last.user.email %></small>
+  </blockquote>
+ </div>
+ <% end %>
+
+<% if place.photos.present? %>
+ <div class="col-12 col-sm-6">
+  <blockquote>
+    <div class="col-12">
+<%= image_tag place.photos.last.picture.url, class: 'img-fluid img-thumbnail' %><br />
+    <%= place.photos.last.caption %>
+    <small><%= place.photos.last.user.email %></small>
+  </blockquote>
+</div>
+<% end %>
+
+</div>
+<% end %>
+
+
+
+<div class="pagebox col-10 offset-1">
+<%= will_paginate @places %>
+</div>
+<br />
+<br />
+
+
+
